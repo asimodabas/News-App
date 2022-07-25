@@ -1,6 +1,6 @@
 package com.asimodabas.haberinolsun.api
 
-import com.asimodabas.haberinolsun.NewsResponse
+import com.asimodabas.haberinolsun.model.NewsResponse
 import com.asimodabas.haberinolsun.util.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
