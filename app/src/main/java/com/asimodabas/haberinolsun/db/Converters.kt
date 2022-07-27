@@ -1,7 +1,6 @@
 package com.asimodabas.haberinolsun.db
 
 import androidx.room.TypeConverter
-import com.asimodabas.haberinolsun.model.Source
 
 class Converters {
     @TypeConverter
