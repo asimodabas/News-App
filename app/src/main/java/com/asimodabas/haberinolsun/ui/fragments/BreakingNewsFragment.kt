@@ -6,12 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asimodabas.haberinolsun.R
+import com.asimodabas.haberinolsun.ui.NewsActivity
+import com.asimodabas.haberinolsun.ui.NewsViewModel
 
 class BreakingNewsFragment : Fragment() {
+
+    lateinit var viewModel: NewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = (activity as NewsActivity).viewModel
     }
 
     override fun onCreateView(
