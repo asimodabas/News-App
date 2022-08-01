@@ -1,7 +1,7 @@
 package com.androiddevs.mvvmnewsapp.models
 
 
-import com.androiddevs.mvvmnewsapp.models.Article
+import com.asimodabas.haberinolsun.model.Article
 
 data class NewsResponse(
     val articles: List<Article>,

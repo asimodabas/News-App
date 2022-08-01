@@ -2,6 +2,7 @@ package com.asimodabas.haberinolsun.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.asimodabas.haberinolsun.model.Article
 
 @Dao
 interface ArticleDao {

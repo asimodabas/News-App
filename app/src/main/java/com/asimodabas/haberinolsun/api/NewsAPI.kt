@@ -1,5 +1,6 @@
 package com.asimodabas.haberinolsun.api
 
+import com.androiddevs.mvvmnewsapp.models.NewsResponse
 import com.asimodabas.haberinolsun.util.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET

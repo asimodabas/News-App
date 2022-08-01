@@ -9,6 +9,6 @@ class NewsViewModelProviderFactory(
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return NewsRepository(newsRepository) as T
+        return NewsViewModel(newsRepository) as T
     }
 }
