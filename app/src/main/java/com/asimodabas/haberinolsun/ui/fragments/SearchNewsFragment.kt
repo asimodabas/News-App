@@ -1,18 +1,31 @@
 package com.asimodabas.haberinolsun.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.asimodabas.haberinolsun.R
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.asimodabas.haberinolsun.databinding.FragmentSearchNewsBinding
+import com.asimodabas.haberinolsun.model.NewsAdapter
 import com.asimodabas.haberinolsun.ui.NewsActivity
 import com.asimodabas.haberinolsun.ui.NewsViewModel
-
+import com.asimodabas.haberinolsun.util.Resource
+import kotlinx.android.synthetic.main.fragment_breaking_news.*
+import kotlinx.android.synthetic.main.fragment_breaking_news.paginationProgressBar
+import kotlinx.android.synthetic.main.fragment_search_news.*
+import kotlinx.coroutines.Job
 
 class SearchNewsFragment : Fragment() {
 
+    private var _binding: FragmentSearchNewsBinding? = null
+    private val binding get() = _binding!!
     lateinit var viewModel: NewsViewModel
+    lateinit var newsAdapter : NewsAdapter
+    val TAG = "SearchNewsFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,14 +34,58 @@ class SearchNewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel = (activity as NewsActivity).viewModel
+        setupRecyclerView()
+
+        var job: Job? = null
+        etSearch.addTextChangedListener {
+
+        }
+
+        viewModel.searchNews.observe(viewLifecycleOwner, Observer {
+            when(it){
+                is Resource.Success -> {
+                    hideProgessBar()
+                    it.data?.let {
+                        newsAdapter.differ.submitList(it.articles)
+                    }
+                }
+                is Resource.Error ->{
+                    hideProgessBar()
+                    it.message?.let {
+                        Log.e(TAG,"Error: $it")
+                    }
+                }
+                is Resource.Loading ->{
+                    showProgessBar()
+                }
+            }
+        })
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_news, container, false)
+        _binding = FragmentSearchNewsBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+       }
+
+
+    private fun hideProgessBar(){
+        paginationProgressBar.visibility = View.INVISIBLE
+    }
+    private fun showProgessBar(){
+        paginationProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun setupRecyclerView(){
+        newsAdapter = NewsAdapter()
+        binding.rvSearchNews.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
     }
 }
