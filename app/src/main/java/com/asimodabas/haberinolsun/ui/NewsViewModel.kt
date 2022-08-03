@@ -23,14 +23,14 @@ class NewsViewModel(
         getBreakingNews("us")
     }
 
-    fun getBreakingNews(countryCode:String) = viewModelScope.launch {
+    fun getBreakingNews(countryCode: String) = viewModelScope.launch {
         breakingNews.postValue(Resource.Loading())
-        val response = newsRepository.getBreakingNews(countryCode,breakingNewsPage)
+        val response = newsRepository.getBreakingNews(countryCode, breakingNewsPage)
         breakingNews.postValue(handleBreakingNewsResponse(response))
     }
 
-    private fun handleBreakingNewsResponse(response:Response<NewsResponse>):Resource<NewsResponse>{
-        if (response.isSuccessful){
+    private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
+        if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
             }
@@ -40,12 +40,12 @@ class NewsViewModel(
 
     fun searchNews(searchQuery: String) = viewModelScope.launch {
         searchNews.postValue(Resource.Loading())
-        val response = newsRepository.searchNews(searchQuery,searchNewsPage)
+        val response = newsRepository.searchNews(searchQuery, searchNewsPage)
         searchNews.postValue(handleSearchNewsResponse(response))
     }
 
-    private fun handleSearchNewsResponse(response:Response<NewsResponse>):Resource<NewsResponse>{
-        if (response.isSuccessful){
+    private fun handleSearchNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
+        if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
             }

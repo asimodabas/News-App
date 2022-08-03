@@ -11,7 +11,7 @@ import com.asimodabas.haberinolsun.ui.NewsViewModel
 
 class SavedNewsFragment : Fragment() {
 
-    lateinit var viewModel : NewsViewModel
+    lateinit var viewModel: NewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -24,7 +24,7 @@ class SearchNewsFragment : Fragment() {
     private var _binding: FragmentSearchNewsBinding? = null
     private val binding get() = _binding!!
     lateinit var viewModel: NewsViewModel
-    lateinit var newsAdapter : NewsAdapter
+    lateinit var newsAdapter: NewsAdapter
     val TAG = "SearchNewsFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,20 +44,20 @@ class SearchNewsFragment : Fragment() {
         }
 
         viewModel.searchNews.observe(viewLifecycleOwner, Observer {
-            when(it){
+            when (it) {
                 is Resource.Success -> {
                     hideProgessBar()
                     it.data?.let {
                         newsAdapter.differ.submitList(it.articles)
                     }
                 }
-                is Resource.Error ->{
+                is Resource.Error -> {
                     hideProgessBar()
                     it.message?.let {
-                        Log.e(TAG,"Error: $it")
+                        Log.e(TAG, "Error: $it")
                     }
                 }
-                is Resource.Loading ->{
+                is Resource.Loading -> {
                     showProgessBar()
                 }
             }
@@ -71,17 +71,18 @@ class SearchNewsFragment : Fragment() {
         _binding = FragmentSearchNewsBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
-       }
+    }
 
 
-    private fun hideProgessBar(){
+    private fun hideProgessBar() {
         paginationProgressBar.visibility = View.INVISIBLE
     }
-    private fun showProgessBar(){
+
+    private fun showProgessBar() {
         paginationProgressBar.visibility = View.VISIBLE
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         newsAdapter = NewsAdapter()
         binding.rvSearchNews.apply {
             adapter = newsAdapter
