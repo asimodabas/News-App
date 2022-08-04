@@ -81,5 +81,4 @@ class BreakingNewsFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
         }
     }
-
 }

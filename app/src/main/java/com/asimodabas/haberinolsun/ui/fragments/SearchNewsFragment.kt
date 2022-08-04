@@ -13,11 +13,15 @@ import com.asimodabas.haberinolsun.databinding.FragmentSearchNewsBinding
 import com.asimodabas.haberinolsun.model.NewsAdapter
 import com.asimodabas.haberinolsun.ui.NewsActivity
 import com.asimodabas.haberinolsun.ui.NewsViewModel
+import com.asimodabas.haberinolsun.util.Constants.Companion.SEARCH_NEWS_TIME_DELAY
 import com.asimodabas.haberinolsun.util.Resource
 import kotlinx.android.synthetic.main.fragment_breaking_news.*
 import kotlinx.android.synthetic.main.fragment_breaking_news.paginationProgressBar
 import kotlinx.android.synthetic.main.fragment_search_news.*
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SearchNewsFragment : Fragment() {
 
@@ -40,7 +44,15 @@ class SearchNewsFragment : Fragment() {
 
         var job: Job? = null
         etSearch.addTextChangedListener {
-
+            job?.cancel()
+            job = MainScope().launch {
+                delay(SEARCH_NEWS_TIME_DELAY)
+                it.let {
+                    if(it.toString().isNotEmpty()){
+                        viewModel.searchNews(it.toString())
+                    }
+                }
+            }
         }
 
         viewModel.searchNews.observe(viewLifecycleOwner, Observer {
