@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asimodabas.haberinolsun.R
 import com.asimodabas.haberinolsun.databinding.FragmentBreakingNewsBinding
@@ -35,6 +36,16 @@ class BreakingNewsFragment : Fragment() {
 
         viewModel = (activity as NewsActivity).viewModel
         setupRecyclerView()
+
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article",it)
+            }
+            findNavController().navigate(
+                R.id.action_breakingNewsFragment_to_articleFragment,
+                bundle
+            )
+        }
 
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer {
             when (it) {

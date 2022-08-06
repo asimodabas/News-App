@@ -35,7 +35,11 @@
         android:id="@+id/articleFragment"
         android:name="com.asimodabas.haberinolsun.ui.fragments.ArticleFragment"
         android:label="fragment_article"
-        tools:layout="@layout/fragment_article" />
+        tools:layout="@layout/fragment_article" >
+        <argument
+            android:name="article"
+            app:argType="com.asimodabas.haberinolsun.model.Article" />
+    </fragment>
     <fragment
         android:id="@+id/searchNewsFragment"
         android:name="com.asimodabas.haberinolsun.ui.fragments.SearchNewsFragment"
