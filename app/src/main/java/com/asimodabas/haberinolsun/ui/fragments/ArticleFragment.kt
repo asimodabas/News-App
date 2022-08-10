@@ -12,6 +12,7 @@ import com.asimodabas.haberinolsun.databinding.FragmentArticleBinding
 import com.asimodabas.haberinolsun.databinding.FragmentSavedNewsBinding
 import com.asimodabas.haberinolsun.ui.NewsActivity
 import com.asimodabas.haberinolsun.ui.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 
 
 class ArticleFragment : Fragment() {
@@ -33,6 +34,11 @@ class ArticleFragment : Fragment() {
         binding.webView.apply {
             webViewClient = WebViewClient()
             loadUrl(article.url)
+        }
+
+        binding.fab.setOnClickListener {
+            viewModel.saveArticle(article)
+            Snackbar.make(view,"Article saved success",Snackbar.LENGTH_LONG).show()
         }
     }
 
