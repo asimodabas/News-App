@@ -36,9 +36,9 @@ class NewsViewModel(
         if (response.isSuccessful) {
             response.body()?.let {
                 breakingNewsPage++
-                if (breakingNewsResponse==null){
+                if (breakingNewsResponse == null) {
                     breakingNewsResponse = it
-                }else{
+                } else {
                     val oldArticles = breakingNewsResponse?.articles
                     val newArticles = it.articles
 
@@ -60,9 +60,9 @@ class NewsViewModel(
         if (response.isSuccessful) {
             response.body()?.let {
                 searchNewsPage++
-                if (searchNewsResponse==null){
+                if (searchNewsResponse == null) {
                     searchNewsResponse = it
-                }else{
+                } else {
                     val oldArticles = searchNewsResponse?.articles
                     val newArticles = it.articles
 
