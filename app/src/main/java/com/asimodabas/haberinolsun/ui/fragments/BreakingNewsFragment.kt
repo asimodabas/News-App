@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.androiddevs.mvvmnewsapp.models.NewsResponse
 import com.asimodabas.haberinolsun.R
 import com.asimodabas.haberinolsun.databinding.FragmentBreakingNewsBinding
 import com.asimodabas.haberinolsun.model.NewsAdapter
@@ -55,7 +56,9 @@ class BreakingNewsFragment : Fragment() {
                 is Resource.Success -> {
                     hideProgessBar()
                     it.data?.let {
-                        newsAdapter.differ.submitList(it.articles)
+                        newsAdapter.differ.submitList(it.articles.toList())
+                        val totalPages = it.totalResults / QUERY_PAGE_SIZE + 2
+                        isLastPage = viewModel.breakingNewsPage == totalPages
                     }
                 }
                 is Resource.Error -> {
