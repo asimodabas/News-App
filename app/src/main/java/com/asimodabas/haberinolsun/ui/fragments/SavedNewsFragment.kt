@@ -22,7 +22,7 @@ class SavedNewsFragment : Fragment() {
     lateinit var viewModel: NewsViewModel
     private var _binding: FragmentSavedNewsBinding? = null
     private val binding get() = _binding!!
-    lateinit var newsAdapter :NewsAdapter
+    lateinit var newsAdapter: NewsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,7 @@ class SavedNewsFragment : Fragment() {
 
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("article",it)
+                putSerializable("article", it)
             }
             findNavController().navigate(
                 R.id.action_savedNewsFragment_to_articleFragment,
@@ -44,10 +44,10 @@ class SavedNewsFragment : Fragment() {
             )
         }
 
-        val itemTouchHelperCallBack = object :ItemTouchHelper.SimpleCallback(
+        val itemTouchHelperCallBack = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        ){
+        ) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -60,8 +60,8 @@ class SavedNewsFragment : Fragment() {
                 val position = viewHolder.adapterPosition
                 val article = newsAdapter.differ.currentList[position]
                 viewModel.deleteArticle(article)
-                Snackbar.make(view,"Successfull deleted article",Snackbar.LENGTH_LONG).apply {
-                    setAction("Undo"){
+                Snackbar.make(view, "Successfull deleted article", Snackbar.LENGTH_LONG).apply {
+                    setAction("Undo") {
                         viewModel.saveArticle(article)
                     }
                     show()
