@@ -1,7 +1,6 @@
 package com.asimodabas.haberinolsun.api
 
 import com.asimodabas.haberinolsun.util.Constants.Companion.BASE_URL
-import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

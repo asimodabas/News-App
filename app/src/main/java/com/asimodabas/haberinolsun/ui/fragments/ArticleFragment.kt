@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.asimodabas.haberinolsun.R
 import com.asimodabas.haberinolsun.databinding.FragmentArticleBinding
-import com.asimodabas.haberinolsun.databinding.FragmentSavedNewsBinding
 import com.asimodabas.haberinolsun.ui.NewsActivity
 import com.asimodabas.haberinolsun.ui.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -33,12 +31,12 @@ class ArticleFragment : Fragment() {
         val article = args.article
         binding.webView.apply {
             webViewClient = WebViewClient()
-            loadUrl(article.url)
+            loadUrl(article.url.toString())
         }
 
         binding.fab.setOnClickListener {
             viewModel.saveArticle(article)
-            Snackbar.make(view,"Article saved success",Snackbar.LENGTH_LONG).show()
+            Snackbar.make(view, "Article saved success", Snackbar.LENGTH_LONG).show()
         }
     }
 
