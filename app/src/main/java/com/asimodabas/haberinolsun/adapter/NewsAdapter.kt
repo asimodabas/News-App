@@ -3,6 +3,8 @@ package com.asimodabas.haberinolsun.model
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +42,14 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
+
+        val tvSource = holder.itemView.findViewById<TextView>(R.id.tvSource)
+        val tvTitle = holder.itemView.findViewById<TextView>(R.id.tvTitle)
+        val tvDescription = holder.itemView.findViewById<TextView>(R.id.tvDescription)
+        val tvPublishedAt = holder.itemView.findViewById<TextView>(R.id.tvPublishedAt)
+        val ivArticleImage = holder.itemView.findViewById<ImageView>(R.id.ivArticleImage)
+
+
         val article = differ.currentList[position]
         holder.itemView.apply {
             Glide.with(this).load(article.urlToImage).into(ivArticleImage)

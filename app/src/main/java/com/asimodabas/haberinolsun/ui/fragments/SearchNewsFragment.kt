@@ -1,11 +1,11 @@
 package com.asimodabas.haberinolsun.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -46,7 +46,7 @@ class SearchNewsFragment : Fragment() {
 
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("article",it)
+                putSerializable("article", it)
             }
             findNavController().navigate(
                 R.id.action_searchNewsFragment_to_articleFragment,
@@ -60,8 +60,8 @@ class SearchNewsFragment : Fragment() {
             job = MainScope().launch {
                 delay(SEARCH_NEWS_TIME_DELAY)
                 it.let {
-                    if(it.toString().isNotEmpty()){
-                        viewModel.searchNews(it.toString())
+                    if (it.toString().isNotEmpty()) {
+                        viewModel.getSearchNews(it.toString())
                     }
                 }
             }
@@ -75,12 +75,15 @@ class SearchNewsFragment : Fragment() {
                         newsAdapter.differ.submitList(it.articles.toList())
                         val totalPages = it.totalResults / Constants.QUERY_PAGE_SIZE + 2
                         isLastPage = viewModel.searchNewsPage == totalPages
+                        if (isLastPage) {
+                            binding.rvSearchNews.setPadding(0, 0, 0, 0)
+                        }
                     }
                 }
                 is Resource.Error -> {
                     hideProgessBar()
                     it.message?.let {
-                        Log.e(TAG, "Error: $it")
+                        Toast.makeText(activity, "Error : $it", Toast.LENGTH_SHORT).show()
                     }
                 }
                 is Resource.Loading -> {
@@ -114,7 +117,7 @@ class SearchNewsFragment : Fragment() {
     var isLastPage = false
     var isScrolling = false
 
-    val scrollListener = object : RecyclerView.OnScrollListener(){
+    val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 
@@ -130,18 +133,16 @@ class SearchNewsFragment : Fragment() {
             val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
                     isTotalMoreThanVisible && isScrolling
-            if(shouldPaginate) {
-                viewModel.searchNews(binding.etSearch.text.toString())
+            if (shouldPaginate) {
+                viewModel.getSearchNews(binding.etSearch.text.toString())
                 isScrolling = false
-            } else {
-                binding.rvSearchNews.setPadding(0, 0, 0, 0)
             }
         }
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
 
-            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                 isScrolling = true
             }
         }

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.Toast
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -59,12 +61,15 @@ class BreakingNewsFragment : Fragment() {
                         newsAdapter.differ.submitList(it.articles.toList())
                         val totalPages = it.totalResults / QUERY_PAGE_SIZE + 2
                         isLastPage = viewModel.breakingNewsPage == totalPages
+                        if(isLastPage){
+                            binding.rvBreakingNews.setPadding(0,0,0,0,)
+                        }
                     }
                 }
                 is Resource.Error -> {
                     hideProgessBar()
                     it.message?.let {
-                        Log.e(TAG, "Error: $it")
+                        Toast.makeText(activity,"Error : $it",Toast.LENGTH_SHORT).show()
                     }
                 }
                 is Resource.Loading -> {
@@ -116,8 +121,6 @@ class BreakingNewsFragment : Fragment() {
             if(shouldPaginate) {
                 viewModel.getBreakingNews("us")
                 isScrolling = false
-            } else {
-                binding.rvBreakingNews.setPadding(0, 0, 0, 0)
             }
         }
 
