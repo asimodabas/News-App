@@ -8,9 +8,9 @@ import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.androiddevs.mvvmnewsapp.models.NewsResponse
 import com.asimodabas.haberinolsun.NewsApplication
 import com.asimodabas.haberinolsun.model.Article
+import com.asimodabas.haberinolsun.model.NewsResponse
 import com.asimodabas.haberinolsun.repository.NewsRepository
 import com.asimodabas.haberinolsun.util.Resource
 import kotlinx.coroutines.launch
