@@ -1,9 +1,7 @@
 package com.asimodabas.haberinolsun.ui.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -18,6 +16,9 @@ import com.asimodabas.haberinolsun.ui.NewsActivity
 import com.asimodabas.haberinolsun.ui.NewsViewModel
 import com.asimodabas.haberinolsun.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.asimodabas.haberinolsun.util.Resource
+import kotlinx.android.synthetic.main.fragment_breaking_news.itemErrorMessage
+import kotlinx.android.synthetic.main.item_error_message.btnRetry
+import kotlinx.android.synthetic.main.item_error_message.tvErrorMessage
 
 class BreakingNewsFragment : Fragment() {
 
@@ -28,15 +29,8 @@ class BreakingNewsFragment : Fragment() {
 
     val TAG = "BreakingNewsFragment"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
-
         viewModel = (activity as NewsActivity).viewModel
         setupRecyclerView()
 
@@ -50,51 +44,60 @@ class BreakingNewsFragment : Fragment() {
             )
         }
 
-        viewModel.breakingNews.observe(viewLifecycleOwner, Observer {
-            when (it) {
+        viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
+            when(response) {
                 is Resource.Success -> {
-                    hideProgessBar()
-                    it.data?.let {
-                        newsAdapter.differ.submitList(it.articles.toList())
-                        val totalPages = it.totalResults / QUERY_PAGE_SIZE + 2
+                    hideProgressBar()
+                    hideErrorMessage()
+                    response.data?.let { newsResponse ->
+                        newsAdapter.differ.submitList(newsResponse.articles.toList())
+                        val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE + 2
                         isLastPage = viewModel.breakingNewsPage == totalPages
-                        if (isLastPage) {
+                        if(isLastPage) {
                             binding.rvBreakingNews.setPadding(0, 0, 0, 0)
                         }
                     }
                 }
                 is Resource.Error -> {
-                    hideProgessBar()
-                    it.message?.let {
-                        Toast.makeText(activity, "Error : $it", Toast.LENGTH_SHORT).show()
+                    hideProgressBar()
+                    response.message?.let { message ->
+                        Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG).show()
+                        showErrorMessage(message)
                     }
                 }
                 is Resource.Loading -> {
-                    showProgessBar()
+                    showProgressBar()
                 }
             }
         })
+
+        btnRetry.setOnClickListener {
+            viewModel.getBreakingNews("us")
+        }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentBreakingNewsBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
-    }
-
-    private fun hideProgessBar() {
+    private fun hideProgressBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE
         isLoading = false
     }
 
-    private fun showProgessBar() {
+    private fun showProgressBar() {
         binding.paginationProgressBar.visibility = View.VISIBLE
         isLoading = true
     }
 
+    private fun hideErrorMessage() {
+        itemErrorMessage.visibility = View.INVISIBLE
+        isError = false
+    }
+
+    private fun showErrorMessage(message: String) {
+        itemErrorMessage.visibility = View.VISIBLE
+        tvErrorMessage.text = message
+        isError = true
+    }
+
+    var isError = false
     var isLoading = false
     var isLastPage = false
     var isScrolling = false
@@ -108,14 +111,14 @@ class BreakingNewsFragment : Fragment() {
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
 
-
+            val isNoErrors = !isError
             val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
-            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
+            val shouldPaginate = isNoErrors && isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
                     isTotalMoreThanVisible && isScrolling
-            if (shouldPaginate) {
+            if(shouldPaginate) {
                 viewModel.getBreakingNews("us")
                 isScrolling = false
             }
@@ -123,8 +126,7 @@ class BreakingNewsFragment : Fragment() {
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-
-            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                 isScrolling = true
             }
         }

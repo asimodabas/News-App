@@ -20,6 +20,10 @@ import com.asimodabas.haberinolsun.ui.NewsViewModel
 import com.asimodabas.haberinolsun.util.Constants
 import com.asimodabas.haberinolsun.util.Constants.Companion.SEARCH_NEWS_TIME_DELAY
 import com.asimodabas.haberinolsun.util.Resource
+import kotlinx.android.synthetic.main.fragment_breaking_news.itemErrorMessage
+import kotlinx.android.synthetic.main.fragment_search_news.etSearch
+import kotlinx.android.synthetic.main.item_error_message.btnRetry
+import kotlinx.android.synthetic.main.item_error_message.tvErrorMessage
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -84,6 +88,7 @@ class SearchNewsFragment : Fragment() {
                     hideProgessBar()
                     it.message?.let {
                         Toast.makeText(activity, "Error : $it", Toast.LENGTH_SHORT).show()
+                        showErrorMessage(it)
                     }
                 }
                 is Resource.Loading -> {
@@ -91,6 +96,13 @@ class SearchNewsFragment : Fragment() {
                 }
             }
         })
+        btnRetry.setOnClickListener {
+            if (etSearch.text.toString().isNotEmpty()) {
+                viewModel.getSearchNews(etSearch.text.toString())
+            } else {
+                hideErrorMessage()
+            }
+        }
     }
 
     override fun onCreateView(
@@ -113,9 +125,23 @@ class SearchNewsFragment : Fragment() {
         isLoading = true
     }
 
+    private fun showErrorMessage(message: String) {
+        itemErrorMessage.visibility = View.VISIBLE
+        tvErrorMessage.text = message
+        isError = true
+    }
+
+    private fun hideErrorMessage() {
+        itemErrorMessage.visibility = View.INVISIBLE
+        isError = false
+    }
+
+
     var isLoading = false
     var isLastPage = false
+    var isError = false
     var isScrolling = false
+
 
     val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
