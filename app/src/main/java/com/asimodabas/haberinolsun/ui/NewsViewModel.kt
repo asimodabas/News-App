@@ -108,7 +108,6 @@ class NewsViewModel(
         }
     }
 
-
     private suspend fun safeBreakingNewsCall(countryCode: String) {
         breakingNews.postValue(Resource.Loading())
         try {

@@ -39,7 +39,6 @@ class SearchNewsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -136,12 +135,10 @@ class SearchNewsFragment : Fragment() {
         isError = false
     }
 
-
     var isLoading = false
     var isLastPage = false
     var isError = false
     var isScrolling = false
-
 
     val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -151,7 +148,6 @@ class SearchNewsFragment : Fragment() {
             val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
-
 
             val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
