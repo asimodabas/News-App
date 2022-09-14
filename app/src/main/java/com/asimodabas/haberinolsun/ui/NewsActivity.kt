@@ -9,6 +9,7 @@ import com.asimodabas.haberinolsun.R
 import com.asimodabas.haberinolsun.databinding.ActivityNewsBinding
 import com.asimodabas.haberinolsun.db.ArticleDatabase
 import com.asimodabas.haberinolsun.repository.NewsRepository
+import kotlinx.android.synthetic.main.activity_news.bottomNavigationView
 
 class NewsActivity : AppCompatActivity() {
 
@@ -24,6 +25,6 @@ class NewsActivity : AppCompatActivity() {
         val newsRepository = NewsRepository(ArticleDatabase(this))
         val viewModelProviderFactory = NewsViewModelProviderFactory(application, newsRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
-        binding.bottomNavigationView.setupWithNavController(findNavController(R.id.newsNavHostFragment))
+        bottomNavigationView.setupWithNavController(findNavController(R.id.newsNavHostFragment))
     }
 }
