@@ -23,7 +23,8 @@ class ArticleFragment : Fragment() {
         webView.apply {
             webViewClient = WebViewClient()
             article.url?.let {
-                loadUrl(article.url) }
+                loadUrl(article.url)
+            }
         }
 
         fab.setOnClickListener {
