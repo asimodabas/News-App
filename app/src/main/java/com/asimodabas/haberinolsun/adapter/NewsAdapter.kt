@@ -1,4 +1,4 @@
-package com.asimodabas.haberinolsun.model
+package com.asimodabas.haberinolsun.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.asimodabas.haberinolsun.R
+import com.asimodabas.haberinolsun.model.Article
 import com.bumptech.glide.Glide
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {

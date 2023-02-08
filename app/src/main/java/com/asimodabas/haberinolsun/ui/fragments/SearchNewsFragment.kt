@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.asimodabas.haberinolsun.R
+import com.asimodabas.haberinolsun.adapter.NewsAdapter
 import com.asimodabas.haberinolsun.databinding.FragmentSearchNewsBinding
-import com.asimodabas.haberinolsun.model.NewsAdapter
 import com.asimodabas.haberinolsun.ui.NewsActivity
 import com.asimodabas.haberinolsun.ui.NewsViewModel
 import com.asimodabas.haberinolsun.util.Constants
@@ -52,8 +52,7 @@ class SearchNewsFragment : Fragment() {
                 putSerializable("article", it)
             }
             findNavController().navigate(
-                R.id.action_searchNewsFragment_to_articleFragment,
-                bundle
+                R.id.action_searchNewsFragment_to_articleFragment, bundle
             )
         }
 
@@ -105,8 +104,7 @@ class SearchNewsFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSearchNewsBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -153,8 +151,8 @@ class SearchNewsFragment : Fragment() {
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
-            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
-                    isTotalMoreThanVisible && isScrolling
+            val shouldPaginate =
+                isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if (shouldPaginate) {
                 viewModel.getSearchNews(binding.etSearch.text.toString())
                 isScrolling = false

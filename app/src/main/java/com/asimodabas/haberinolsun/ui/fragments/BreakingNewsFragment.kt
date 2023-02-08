@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.asimodabas.haberinolsun.R
+import com.asimodabas.haberinolsun.adapter.NewsAdapter
 import com.asimodabas.haberinolsun.databinding.FragmentBreakingNewsBinding
-import com.asimodabas.haberinolsun.model.NewsAdapter
 import com.asimodabas.haberinolsun.ui.NewsActivity
 import com.asimodabas.haberinolsun.ui.NewsViewModel
 import com.asimodabas.haberinolsun.util.Constants.Companion.QUERY_PAGE_SIZE
