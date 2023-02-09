@@ -2,16 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/breakingNewsFragment"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/ic_news"
         android:title="Breaking News" />
-
-    <item
-        android:id="@+id/savedNewsFragment"
-        android:icon="@drawable/ic_launcher_background"
-        android:title="Saved News" />
-
     <item
         android:id="@+id/searchNewsFragment"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/ic_search"
         android:title="Search News" />
+    <item
+        android:id="@+id/savedNewsFragment"
+        android:icon="@drawable/ic_favorite"
+        android:title="Saved News" />
 </menu>
