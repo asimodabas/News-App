@@ -8,8 +8,7 @@ import androidx.room.TypeConverters
 import com.asimodabas.haberinolsun.model.Article
 
 @Database(
-    entities = [Article::class],
-    version = 1
+    entities = [Article::class], version = 1
 )
 @TypeConverters(Converters::class)
 abstract class ArticleDatabase : RoomDatabase() {
@@ -25,11 +24,8 @@ abstract class ArticleDatabase : RoomDatabase() {
             instance ?: createDatabase(context).also { instance = it }
         }
 
-        private fun createDatabase(context: Context) =
-            Room.databaseBuilder(
-                context.applicationContext,
-                ArticleDatabase::class.java,
-                "article_db.db"
-            ).build()
+        private fun createDatabase(context: Context) = Room.databaseBuilder(
+            context.applicationContext, ArticleDatabase::class.java, "article_db.db"
+        ).build()
     }
 }

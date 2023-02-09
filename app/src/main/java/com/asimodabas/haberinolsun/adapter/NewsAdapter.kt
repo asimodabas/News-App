@@ -31,9 +31,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         return ArticleViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_article_preview,
-                parent,
-                false
+                R.layout.item_article_preview, parent, false
             )
         )
     }
@@ -49,7 +47,6 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
         val tvDescription = holder.itemView.findViewById<TextView>(R.id.tvDescription)
         val tvPublishedAt = holder.itemView.findViewById<TextView>(R.id.tvPublishedAt)
         val ivArticleImage = holder.itemView.findViewById<ImageView>(R.id.ivArticleImage)
-
 
         val article = differ.currentList[position]
         holder.itemView.apply {

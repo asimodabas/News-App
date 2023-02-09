@@ -1,4 +1,4 @@
-package com.asimodabas.haberinolsun.ui
+package com.asimodabas.haberinolsun.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.asimodabas.haberinolsun.repository.NewsRepository
 
 class NewsViewModelProviderFactory(
-    val app: Application,
-    val newsRepository: NewsRepository
+    val app: Application, val newsRepository: NewsRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -1,4 +1,4 @@
-package com.asimodabas.haberinolsun.ui.fragments
+package com.asimodabas.haberinolsun.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asimodabas.haberinolsun.R
 import com.asimodabas.haberinolsun.adapter.NewsAdapter
 import com.asimodabas.haberinolsun.databinding.FragmentSavedNewsBinding
-import com.asimodabas.haberinolsun.ui.NewsActivity
-import com.asimodabas.haberinolsun.ui.NewsViewModel
+import com.asimodabas.haberinolsun.ui.activity.NewsActivity
+import com.asimodabas.haberinolsun.viewmodel.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class SavedNewsFragment : Fragment() {
@@ -23,10 +23,6 @@ class SavedNewsFragment : Fragment() {
     private var _binding: FragmentSavedNewsBinding? = null
     private val binding get() = _binding!!
     lateinit var newsAdapter: NewsAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,8 +34,7 @@ class SavedNewsFragment : Fragment() {
                 putSerializable("article", it)
             }
             findNavController().navigate(
-                R.id.action_savedNewsFragment_to_articleFragment,
-                bundle
+                R.id.action_savedNewsFragment_to_articleFragment, bundle
             )
         }
 
@@ -78,8 +73,7 @@ class SavedNewsFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSavedNewsBinding.inflate(inflater, container, false)
         val view = binding.root

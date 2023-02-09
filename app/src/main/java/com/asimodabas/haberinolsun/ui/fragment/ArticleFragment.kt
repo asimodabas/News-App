@@ -1,12 +1,12 @@
-package com.asimodabas.haberinolsun.ui.fragments
+package com.asimodabas.haberinolsun.ui.fragment
 
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.asimodabas.haberinolsun.ui.NewsActivity
-import com.asimodabas.haberinolsun.ui.NewsViewModel
+import com.asimodabas.haberinolsun.ui.activity.NewsActivity
+import com.asimodabas.haberinolsun.viewmodel.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_article.fab
 import kotlinx.android.synthetic.main.fragment_article.webView

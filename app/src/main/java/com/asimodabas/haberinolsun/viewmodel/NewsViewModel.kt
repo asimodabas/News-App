@@ -1,4 +1,4 @@
-package com.asimodabas.haberinolsun.ui
+package com.asimodabas.haberinolsun.viewmodel
 
 import android.app.Application
 import android.content.Context
@@ -18,8 +18,7 @@ import okio.IOException
 import retrofit2.Response
 
 class NewsViewModel(
-    app: Application,
-    val newsRepository: NewsRepository
+    app: Application, val newsRepository: NewsRepository
 ) : AndroidViewModel(app) {
 
     val breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
