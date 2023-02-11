@@ -13,7 +13,6 @@ import com.asimodabas.haberinolsun.model.Article
 import com.bumptech.glide.Glide
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
-
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private val differCallback = object : DiffUtil.ItemCallback<Article>() {

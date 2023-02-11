@@ -72,7 +72,7 @@ class BreakingNewsFragment : Fragment() {
         })
 
         btnRetry.setOnClickListener {
-            viewModel.getBreakingNews("us")
+            viewModel.getBreakingNews("tr")
         }
     }
 
@@ -119,7 +119,7 @@ class BreakingNewsFragment : Fragment() {
             val shouldPaginate =
                 isNoErrors && isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if (shouldPaginate) {
-                viewModel.getBreakingNews("us")
+                viewModel.getBreakingNews("tr")
                 isScrolling = false
             }
         }

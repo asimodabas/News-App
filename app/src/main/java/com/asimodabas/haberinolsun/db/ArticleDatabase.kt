@@ -12,7 +12,6 @@ import com.asimodabas.haberinolsun.model.Article
 )
 @TypeConverters(Converters::class)
 abstract class ArticleDatabase : RoomDatabase() {
-
     abstract fun getArticleDao(): ArticleDao
 
     companion object {

@@ -19,10 +19,10 @@ import com.google.android.material.snackbar.Snackbar
 
 class SavedNewsFragment : Fragment() {
 
-    lateinit var viewModel: NewsViewModel
     private var _binding: FragmentSavedNewsBinding? = null
     private val binding get() = _binding!!
     lateinit var newsAdapter: NewsAdapter
+    lateinit var viewModel: NewsViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

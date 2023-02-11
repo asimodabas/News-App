@@ -35,6 +35,7 @@ class SearchNewsFragment : Fragment() {
     private val binding get() = _binding!!
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
+
     val TAG = "SearchNewsFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,7 +107,6 @@ class SearchNewsFragment : Fragment() {
         val view = binding.root
         return view
     }
-
 
     private fun hideProgessBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE
