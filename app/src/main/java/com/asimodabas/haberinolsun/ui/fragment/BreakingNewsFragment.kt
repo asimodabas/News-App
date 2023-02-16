@@ -16,9 +16,6 @@ import com.asimodabas.haberinolsun.ui.activity.NewsActivity
 import com.asimodabas.haberinolsun.util.Constants.QUERY_PAGE_SIZE
 import com.asimodabas.haberinolsun.util.Resource
 import com.asimodabas.haberinolsun.viewmodel.NewsViewModel
-import kotlinx.android.synthetic.main.fragment_breaking_news.itemErrorMessage
-import kotlinx.android.synthetic.main.item_error_message.btnRetry
-import kotlinx.android.synthetic.main.item_error_message.tvErrorMessage
 
 class BreakingNewsFragment : Fragment() {
 
@@ -71,7 +68,7 @@ class BreakingNewsFragment : Fragment() {
             }
         })
 
-        btnRetry.setOnClickListener {
+        binding.itemErrorMessage.btnRetry.setOnClickListener {
             viewModel.getBreakingNews("tr")
         }
     }
@@ -87,13 +84,13 @@ class BreakingNewsFragment : Fragment() {
     }
 
     private fun hideErrorMessage() {
-        itemErrorMessage.visibility = View.INVISIBLE
+        binding.itemErrorMessage.tvErrorMessage.visibility = View.INVISIBLE
         isError = false
     }
 
     private fun showErrorMessage(message: String) {
-        itemErrorMessage.visibility = View.VISIBLE
-        tvErrorMessage.text = message
+        binding.itemErrorMessage.tvErrorMessage.visibility = View.VISIBLE
+        binding.itemErrorMessage.tvErrorMessage.text = message
         isError = true
     }
 
@@ -139,5 +136,10 @@ class BreakingNewsFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@BreakingNewsFragment.scrollListener)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -20,10 +20,6 @@ import com.asimodabas.haberinolsun.util.Constants
 import com.asimodabas.haberinolsun.util.Constants.SEARCH_NEWS_TIME_DELAY
 import com.asimodabas.haberinolsun.util.Resource
 import com.asimodabas.haberinolsun.viewmodel.NewsViewModel
-import kotlinx.android.synthetic.main.fragment_breaking_news.itemErrorMessage
-import kotlinx.android.synthetic.main.fragment_search_news.etSearch
-import kotlinx.android.synthetic.main.item_error_message.btnRetry
-import kotlinx.android.synthetic.main.item_error_message.tvErrorMessage
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -91,9 +87,9 @@ class SearchNewsFragment : Fragment() {
                 }
             }
         })
-        btnRetry.setOnClickListener {
-            if (etSearch.text.toString().isNotEmpty()) {
-                viewModel.getSearchNews(etSearch.text.toString())
+        binding.itemErrorMessage.btnRetry.setOnClickListener {
+            if (binding.etSearch.text.toString().isNotEmpty()) {
+                viewModel.getSearchNews(binding.etSearch.text.toString())
             } else {
                 hideErrorMessage()
             }
@@ -119,13 +115,13 @@ class SearchNewsFragment : Fragment() {
     }
 
     private fun showErrorMessage(message: String) {
-        itemErrorMessage.visibility = View.VISIBLE
-        tvErrorMessage.text = message
+        binding.itemErrorMessage.tvErrorMessage.visibility = View.VISIBLE
+        binding.itemErrorMessage.tvErrorMessage.text = message
         isError = true
     }
 
     private fun hideErrorMessage() {
-        itemErrorMessage.visibility = View.INVISIBLE
+        binding.itemErrorMessage.tvErrorMessage.visibility = View.INVISIBLE
         isError = false
     }
 
@@ -171,5 +167,10 @@ class SearchNewsFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@SearchNewsFragment.scrollListener)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

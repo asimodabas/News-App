@@ -11,7 +11,6 @@ import com.asimodabas.haberinolsun.db.ArticleDatabase
 import com.asimodabas.haberinolsun.repository.NewsRepository
 import com.asimodabas.haberinolsun.viewmodel.NewsViewModel
 import com.asimodabas.haberinolsun.viewmodel.NewsViewModelProviderFactory
-import kotlinx.android.synthetic.main.activity_news.bottomNavigationView
 
 class NewsActivity : AppCompatActivity() {
 
@@ -27,6 +26,6 @@ class NewsActivity : AppCompatActivity() {
         val newsRepository = NewsRepository(ArticleDatabase(this))
         val viewModelProviderFactory = NewsViewModelProviderFactory(application, newsRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
-        bottomNavigationView.setupWithNavController(findNavController(R.id.newsNavHostFragment))
+        binding.bottomNavigationView.setupWithNavController(findNavController(R.id.newsNavHostFragment))
     }
 }
