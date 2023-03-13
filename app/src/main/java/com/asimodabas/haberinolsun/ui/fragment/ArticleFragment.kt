@@ -12,8 +12,8 @@ import com.google.android.material.snackbar.Snackbar
 
 class ArticleFragment : Fragment() {
 
-    lateinit var viewModel: NewsViewModel
     val args: ArticleFragmentArgs by navArgs()
+    lateinit var viewModel: NewsViewModel
     private var _binding: FragmentArticleBinding? = null
     private val binding get() = _binding!!
 
