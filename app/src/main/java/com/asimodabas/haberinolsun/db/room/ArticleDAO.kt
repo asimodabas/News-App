@@ -1,15 +1,15 @@
-package com.asimodabas.haberinolsun.db
+package com.asimodabas.haberinolsun.db.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.asimodabas.haberinolsun.model.Article
+import com.asimodabas.haberinolsun.domain.model.Article
 
 @Dao
-interface ArticleDao {
+interface ArticleDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(article: Article): Long
+    suspend fun insertArticle(article: Article): Long
 
-    @Query("SELECT * FROM articles")
+    @Query("SELECT * FROM article")
     fun getAllArticles(): LiveData<List<Article>>
 
     @Delete

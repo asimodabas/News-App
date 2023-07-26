@@ -19,7 +19,7 @@
         android:theme="@style/Theme.HaberinOlsun"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activity.NewsActivity"
+            android:name=".ui.activity.news.NewsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

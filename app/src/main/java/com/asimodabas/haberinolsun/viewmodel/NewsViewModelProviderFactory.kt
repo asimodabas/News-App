@@ -1,15 +1,12 @@
 package com.asimodabas.haberinolsun.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.asimodabas.haberinolsun.repository.NewsRepository
+import com.asimodabas.haberinolsun.data.repository.NewsRepository
 
-class NewsViewModelProviderFactory(
-    val app: Application, val newsRepository: NewsRepository
-) : ViewModelProvider.Factory {
+class NewsViewModelProviderFactory(private val repository: NewsRepository) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return NewsViewModel(app, newsRepository) as T
+        return NewsViewModel(repository) as T
     }
 }

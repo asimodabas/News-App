@@ -1,16 +1,12 @@
 package com.asimodabas.haberinolsun.db
 
 import androidx.room.TypeConverter
-import com.asimodabas.haberinolsun.model.Source
+import com.asimodabas.haberinolsun.domain.model.Source
 
 class Converters {
     @TypeConverter
-    fun fromSource(source: Source): String {
-        return source.name
-    }
+    fun fromSource(source: Source): String? = source.name
 
     @TypeConverter
-    fun toSource(name: String): Source {
-        return Source(name, name)
-    }
+    fun toSource(name: String): Source = Source(name, name)
 }
